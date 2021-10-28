@@ -1,9 +1,22 @@
 {
-  "name": "project-init-tools",
+  "name": "mrm-preset-project-init-tools",
   "version": "0.0.1",
-  "main": "index.js",
   "license": "MIT",
+  "main": "config.json",
+  "author": "ioannou.dev@gmail.com",
+  "engines": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "mrm",
+    "mrm-preset"
+  ],
+  "files": [
+    "config.json",
+    "*/index.js"
+  ],
   "dependencies": {
+    "mrm": "^3.0.10",
     "mrm-core": "^6.1.7"
   }
 }
