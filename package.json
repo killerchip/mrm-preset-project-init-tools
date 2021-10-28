@@ -1,0 +1,9 @@
+{
+  "name": "project-init-tools",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "mrm-core": "^6.1.7"
+  }
+}
