@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "mrm": "^3.0.10",
-    "mrm-core": "^6.1.7"
+    "mrm-core": "^6.1.7",
+    "mrm-task-eslint": "^3.0.8"
   }
 }
