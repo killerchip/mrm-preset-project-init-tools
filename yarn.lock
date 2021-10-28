@@ -395,6 +395,11 @@ duplexer3@^0.1.4:
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
+editorconfig-to-prettier@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.1.1.tgz#7391c7067dfd68ffee65afc2c4fbe4fba8d4219a"
+  integrity sha512-MMadSSVRDb4uKdxV6bCXXN4cTsxIsXYtV4XdPu6FOCSAw6zsCIDA+QEktEU+u6h+c/mTrul5NR+pwFpPxwetiQ==
+
 editorconfig@^0.15.3:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/editorconfig/-/editorconfig-0.15.3.tgz#bef84c4e75fb8dcb0ce5cee8efd51c15999befc5"
@@ -1017,6 +1022,15 @@ mrm-task-eslint@^3.0.8:
   resolved "https://registry.yarnpkg.com/mrm-task-eslint/-/mrm-task-eslint-3.0.8.tgz#10571310840d9bf10b1b277641dcd48ec9f2777e"
   integrity sha512-1hud1IeC/rp8lIS+M+QBh+RQvARsIpZhIq98gCux+rLBDGoy9i/qWyOAlM6fWxg1bbbRSg1y+PFiygdanYrhTw==
   dependencies:
+    lodash "^4.17.15"
+    mrm-core "^6.1.7"
+
+mrm-task-prettier@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/mrm-task-prettier/-/mrm-task-prettier-4.0.8.tgz#1be3272a8f46cc3ba93ec6510c98ac5303b3ca07"
+  integrity sha512-BojcAh8TZQwyKn+Hx3yE8atagewbEUAnqDVi9sW3rj4/Mfz2BAr9CyodpN1EsdXOgkNd5+BbcwMcLgfoVFhUjQ==
+  dependencies:
+    editorconfig-to-prettier "0.1.1"
     lodash "^4.17.15"
     mrm-core "^6.1.7"
 

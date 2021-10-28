@@ -1,6 +1,6 @@
 {
   "projectName": "my-project",
   "aliases": {
-    "expo-eslint": ["eslint","expo-eslint-config"]
+    "expo-eslint": ["eslint", "prettier", "expo-eslint-config"]
   }
 }
