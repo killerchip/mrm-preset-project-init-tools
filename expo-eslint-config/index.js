@@ -1,3 +1,19 @@
+const { exec } = require("child_process");
+
+function execCli(command) {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
+}
+
 module.exports = function task() {
   const {
     json,
@@ -6,7 +22,6 @@ module.exports = function task() {
     lines,
     deleteFiles,
   } = require("mrm-core");
-  const { exec } = require("child_process");
 
   // Package JSON prepare
   install(devDependenciesToInstall, { yarn: true });
@@ -33,21 +48,12 @@ module.exports = function task() {
   prettierignoreFile.remove(prettierignore).add(prettierignore).save();
 
   // husky
-  exec("yarn husky:prepare", (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
+  execCli("yarn husky:prepare");
 
   deleteFiles(HUSKY_PATH + "/pre-commit");
   const preCommitScriptFile = lines(HUSKY_PATH + "/pre-commit");
   preCommitScriptFile.add(preCommitScript).save();
+  execCli("chmod +x " + HUSKY_PATH + "/pre-commit");
 };
 
 module.exports.description =
