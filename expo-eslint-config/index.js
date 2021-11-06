@@ -1,21 +1,40 @@
 module.exports = function task() {
-  const { json } = require("mrm-core");
-  const { install } = require("mrm-core");
+  const { json, install, packageJson } = require("mrm-core");
 
-  install("eslint-config-universe", { yarn: true });
+  // Package JSON prepare
+  install(devDependenciesToInstall, { yarn: true });
 
-  const eslintrc = json(".eslintrc.json");
+  const packageJsonFile = packageJson();
 
-  if (!eslintrc.exists()) {
-    throw new Error(".eslintrc.json was not found");
-  }
-  eslintrc.merge({
-    extends: "universe",
-  });
+  Object.keys(scriptsToAdd).forEach((scriptName) =>
+    packageJsonFile.setScript(scriptName, scriptsToAdd[scriptName])
+  );
+  packageJsonFile.save();
 
-  eslintrc.save();
-  console.log("Configuration done");
+  // const eslintrc = json(".eslintrc.json");
+
+  // if (!eslintrc.exists()) {
+  //   throw new Error(".eslintrc.json was not found");
+  // }
 };
 
 module.exports.description =
   "Add pre-configured eslint, prettier, pre-commit for expo apps";
+
+const devDependenciesToInstall = [
+  "eslint",
+  "@typescript-eslint/parser",
+  "eslint-config-prettier",
+  "eslint-config-universe",
+  "eslint-plugin-prettier",
+  "husky",
+  "prettier",
+  "pretty-quick",
+];
+
+const scriptsToAdd = {
+  lint: "tsc --noEmit && eslint .",
+  pretty: "prettier --write .",
+  "husky:prepare": "husky install",
+  "pre-commit": "pretty-quick --staged",
+};
