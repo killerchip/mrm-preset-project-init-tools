@@ -4,6 +4,7 @@
   "license": "MIT",
   "main": "config.json",
   "author": "ioannou.dev@gmail.com",
+  "repository": "https://github.com/killerchip/mrm-preset-project-init-tools",
   "engines": {
     "node": ">=4"
   },
