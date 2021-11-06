@@ -66,6 +66,7 @@ const devDependenciesToInstall = [
   "eslint-config-prettier",
   "eslint-config-universe",
   "eslint-plugin-prettier",
+  "eslint-plugin-react-native",
   "husky",
   "prettier",
   "pretty-quick",
@@ -81,9 +82,10 @@ const scriptsToAdd = {
 const eslintrc = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint", "react-native", "prettier"],
   extends: [
     "universe",
+    "universe/native",
     "universe/shared/typescript-analysis",
     "plugin:prettier/recommended",
   ],
@@ -100,6 +102,12 @@ const eslintrc = {
   ],
   rules: {
     "prettier/prettier": 1,
+    "@typescript-eslint/member-ordering": "warn",
+    "react-native/no-unused-styles": 1,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-raw-text": 2,
+    "react-native/no-single-element-style-arrays": 2,
+    "no-console": "error",
   },
 };
 
