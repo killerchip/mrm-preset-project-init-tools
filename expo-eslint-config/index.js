@@ -33,6 +33,7 @@ module.exports.description =
 
 const devDependenciesToInstall = [
   "eslint",
+  "@typescript-eslint/eslint-plugin",
   "@typescript-eslint/parser",
   "eslint-config-prettier",
   "eslint-config-universe",
