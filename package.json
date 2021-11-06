@@ -5,6 +5,7 @@
   "main": "config.json",
   "author": "ioannou.dev@gmail.com",
   "repository": "https://github.com/killerchip/mrm-preset-project-init-tools",
+  "description": "A set of opinionated configuration tools for fast initialize of Expo, React-Native, React projects.",
   "engines": {
     "node": ">=4"
   },
