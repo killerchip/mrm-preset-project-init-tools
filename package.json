@@ -11,7 +11,9 @@
   },
   "keywords": [
     "mrm",
-    "mrm-preset"
+    "mrm-preset",
+    "expo",
+    "eslint"
   ],
   "files": [
     "config.json",
