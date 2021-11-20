@@ -99,7 +99,10 @@ export default function plopCommand(plop: NodePlopAPI) {
 
 const plopCommandIndexHbs = `import { NodePlopAPI } from 'plop';
 
-export default function inversify(plop: NodePlopAPI) {
+// This is a starter file.
+// Customize to your liking.
+
+export default function {{camelCase command}}(plop: NodePlopAPI) {
   return plop.setGenerator('{{camelCase command}}', {
     description: 'No description for {{camelCase command}}',
     prompts: [
@@ -121,5 +124,4 @@ export default function inversify(plop: NodePlopAPI) {
 }
 `;
 
-const plopCommandHbsContent = `// Put your generated file contents here
-`
+const plopCommandHbsContent = "// Put your generated file contents here";
