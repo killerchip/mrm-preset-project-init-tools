@@ -12,6 +12,7 @@ Currently, the tasks included are:
 
 - [expo-eslint](#expo-eslint): A base configuration of eslint, prettier, and husky automation for expo projects.
 - [expo-jest](#expo-jest): Base configuration with `expo-jest` on Typescript project.
+- [plop](#plop): Installs the [`plop`](https://www.npmjs.com/package/plop) code generator and command to easily create a starter for custom commands.
 
 ## How to use tools
 
@@ -59,6 +60,24 @@ mrm expo-jest --preset project-init-tools
 ```
 
 Install `expo-jest` in the project with proper configuration for running the tests in Typescript. Based on instructions from [official Expo documentation](https://docs.expo.dev/guides/testing-with-jest/)
+
+## plop
+
+```
+mrm plop --preset project-init-tools
+```
+
+Installs [`plop`](https://www.npmjs.com/package/plop) code generator. You can create custom "plop commands" that will in turn generate custom boiler plate file in your code.
+
+It installs also "plop command" `plopCommand` that creates a boilerplate code for generating your own next command.
+
+Once installed, you can run at anytime 
+```
+yarn plop plopCommand
+```
+It will ask you for the new command name and the command config files path (by default `plops`).
+
+For more information on how use plop and add your own code templates see [https://www.npmjs.com/package/plop](https://www.npmjs.com/package/plop)
 
 ## Overriding
 
