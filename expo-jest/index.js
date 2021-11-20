@@ -2,7 +2,6 @@ const { exec } = require("child_process");
 
 module.exports = function task() {
   const {
-    json,
     install,
     packageJson,
     lines,
