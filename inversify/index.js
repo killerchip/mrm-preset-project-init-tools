@@ -1,5 +1,6 @@
 module.exports = function task() {
-  const { lines, install, json } = require("mrm-core");
+  const execSync = require("child_process").execSync;
+  const { lines, install, json, makeDirs } = require("mrm-core");
 
   install(dependencies, { yarn: true, dev: false });
 
@@ -23,6 +24,18 @@ module.exports = function task() {
   const appFile = lines("./App.tsx");
   const existingContent = appFile.get();
   appFile.set([appTsxContent].concat(existingContent)).save();
+
+  const plopFileTs = lines("plopfile.ts");
+  if (!plopFileTs.exists()) {
+    execSync("mrm plop --preset project-init-tools");
+  }
+
+  makeDirs("./plops/addStore");
+  const plopIndexFile = lines("./plops/addStore/index.ts");
+  plopIndexFile.set([plopFileIndexContent]).save();
+
+  const plopFileStoreHbsContextFile = lines("./plops/addStore/store.ts.hbs");
+  plopFileStoreHbsContextFile.set([plopFileStoreHbsContext]).save();
 };
 
 module.exports.description = "Installs and configures inversify";
@@ -36,6 +49,12 @@ const container = new Container({
   autoBindInjectable: true,
   defaultScope: 'Transient',
 });
+
+// Bind Classes in Singleton scope with a command like the following
+// getRootContainer().bind(SingletonStore).toSelf().inSingletonScope();
+//
+// Do it in the same file where you declare the class to avoid
+// file circular dependencies
 
 export const getRootContainer = () => container;
 
@@ -68,3 +87,49 @@ export function createStoreContext<T>(storeName?: string) {
 
 const appTsxContent = `import 'reflect-metadata';
 import './src/config/inversify/inversify';`;
+
+const plopFileIndexContent = `import { NodePlopAPI } from 'plop';
+
+export default function plopCommand(plop: NodePlopAPI) {
+  return plop.setGenerator('addStore', {
+    description: 'Creates a new Class Store that can be served by inversify',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Store name',
+      },
+      {
+        type: 'input',
+        name: 'targetFolder',
+        message: 'specify install folder',
+        default: 'src',
+      },
+    ],
+    actions: [
+      {
+        type: 'add',
+        path: '{{targetFolder}}/{{pascalCase name}}.ts',
+        templateFile: './plops/addStore/store.ts.hbs',
+      },
+    ],
+  });
+}
+`;
+
+const plopFileStoreHbsContext = `import { injectable } from 'inversify';
+
+@injectable()
+class {{pascalCase name}} {}
+
+export const use{{pascalCase name}} = () => useClassStore({{pascalCase name}});
+
+export const {
+  Context: {{pascalCase name}}Context,
+  useStoreContext: use{{pascalCase name}}Context,
+} = createStoreContext<{{pascalCase name}}>();
+`;
+
+const plopfile = lines("plopfile.ts");
+const existingLines = plopFile.get();
+// CONTINUE HERE WITH MODIFYING plopfile
