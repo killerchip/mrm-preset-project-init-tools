@@ -61,22 +61,16 @@ export default function plopCommand(plop: NodePlopAPI) {
         name: 'command',
         message: 'specify the plop command',
       },
-      {
-        type: 'input',
-        name: 'targetFolder',
-        message: 'specify install folder',
-        default: 'plops',
-      },
     ],
     actions: [
       {
         type: 'add',
-        path: '{{targetFolder}}/{{camelCase command}}/index.ts',
+        path: './plops/{{camelCase command}}/index.ts',
         templateFile: './plops/plopCommand/plopCommandIndex.hbs',
       },
       {
         type: 'add',
-        path: '{{targetFolder}}/{{camelCase command}}/{{camelCase command}}.hbs',
+        path: './plops/{{camelCase command}}/{{camelCase command}}.hbs',
         templateFile: './plops/plopCommand/plopCommandHbs.hbs',
       },
       {
