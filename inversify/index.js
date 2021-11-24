@@ -30,12 +30,31 @@ module.exports = function task() {
     execSync("mrm plop --preset project-init-tools");
   }
 
+  // add plop command
   makeDirs("./plops/addStore");
   const plopIndexFile = lines("./plops/addStore/index.ts");
   plopIndexFile.set([plopFileIndexContent]).save();
 
   const plopFileStoreHbsContextFile = lines("./plops/addStore/store.ts.hbs");
   plopFileStoreHbsContextFile.set([plopFileStoreHbsContext]).save();
+
+  // Modify plopfile
+  const plopFile = lines("plopfile.ts");
+  const existingLines = plopFile.get();
+  const importPlaceIndex = existingLines.findIndex((line) =>
+    line.includes("//--plop imports--")
+  );
+  const commandIndex = existingLines.findIndex((line) =>
+    line.includes("//--plop commands--")
+  );
+  existingLines[importPlaceIndex] =
+    `import addStore from './plops/addStore';\n` +
+    existingLines[importPlaceIndex];
+
+  existingLines[commandIndex] =
+    `addStore(plop);\n` + existingLines[commandIndex];
+
+  plopFile.set(existingLines).save();
 };
 
 module.exports.description = "Installs and configures inversify";
@@ -129,7 +148,3 @@ export const {
   useStoreContext: use{{pascalCase name}}Context,
 } = createStoreContext<{{pascalCase name}}>();
 `;
-
-const plopfile = lines("plopfile.ts");
-const existingLines = plopFile.get();
-// CONTINUE HERE WITH MODIFYING plopfile
