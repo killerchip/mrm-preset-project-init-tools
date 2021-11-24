@@ -12,6 +12,7 @@ module.exports = function task() {
       types: tsConfigTypes.concat(["reflect-metadata"]),
       experimentalDecorators: true,
       emitDecoratorMetadata: true,
+      useDefineForClassFields: true,
     },
   };
   tsConfigFile.merge(tsConfigNewContent).save();
@@ -59,7 +60,12 @@ module.exports = function task() {
 
 module.exports.description = "Installs and configures inversify";
 
-const dependencies = ["inversify", "reflect-metadata"];
+const dependencies = [
+  "inversify",
+  "reflect-metadata",
+  "mobx",
+  "mobx-react-lite",
+];
 
 const inversifyTsContent = `import { Container, interfaces } from 'inversify';
 import { createContext, useContext, useState } from 'react';
@@ -137,9 +143,14 @@ export default function plopCommand(plop: NodePlopAPI) {
 `;
 
 const plopFileStoreHbsContext = `import { injectable } from 'inversify';
+import { makeAutoObservable } from 'mobx';
 
 @injectable()
-class {{pascalCase name}} {}
+class {{pascalCase name}} {
+  constructor() {
+    makeAutoObservable(this);
+  }
+}
 
 export const use{{pascalCase name}} = () => useClassStore({{pascalCase name}});
 
