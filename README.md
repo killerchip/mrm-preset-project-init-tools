@@ -71,13 +71,117 @@ Installs [`plop`](https://www.npmjs.com/package/plop) code generator. You can cr
 
 It installs also "plop command" `plopCommand` that creates a boilerplate code for generating your own next command.
 
-Once installed, you can run at anytime 
+Once installed, you can run at anytime
+
 ```
 yarn plop plopCommand
 ```
+
 It will ask you for the new command name and the command config files path (by default `plops`).
 
 For more information on how use plop and add your own code templates see [https://www.npmjs.com/package/plop](https://www.npmjs.com/package/plop)
+
+## inversify & mobx
+
+Installs [inversifyJS](https://inversify.io/) DI/IOC framework and [Mobx](https://mobx.js.org/) state management.
+
+```
+mrm plop --preset project-init-tools
+```
+
+If not already present, it will install also `plop` (see above).
+
+### inversify
+
+A file `src/config/inversify.ts` is created, which initiates a container.
+The container configured with options:
+
+```
+  autoBindInjectable: true,
+  defaultScope: 'Transient'
+```
+
+and exports a function to get the container
+
+```
+export const getRootContainer = () => container;
+```
+
+### store template
+
+The scripts also creates a plop file that allows you to generate a starter class-based mobx store.
+
+```
+yarn plop addStore <StoreName> <target_folder>
+```
+
+It will generate a starter class. For example:
+
+```
+@injectable()
+class MyStore {
+  constructor() {
+    makeAutoObservable(this);
+  }
+}
+```
+
+Which can be requested from inversify root container as:
+
+```
+const myStoreInstance = getRootContainer().get(MyStore)
+```
+
+### bind in singleton mode
+
+By default Classes are bound in 'transient' mode. To bind in singleton mode, you can bind it right after the class declaration. Example:
+
+```
+getRootContainer().bind(MyStore).toSelf().inSingletonScope();
+```
+
+### request an instance via hook
+
+Each store file exports a React-hook that allows you to get an instance directly from within a React component. For example, it exports:
+
+```
+export const useMyStore = () => useClassStore(MyStore);
+```
+
+and inside your component you can get an instance by using this hook:
+
+```
+const myStore = useMyStore();
+```
+
+### Store Context
+
+In case you wish to pass a specific store instance from a parent component to a child component, you can use the pre-declared Context of the store:
+
+```
+export const {
+  Context: myStoreContext,
+  useStoreContext: useMyStoreContext,
+} = createStoreContext<MyStore>();
+```
+
+So then in your parent component after you get an instance, you pass it into context. For example:
+
+```
+const myStore = useMyStore();
+...
+<MyStoreContext.Provider value={myStore}>
+    // child components
+</MyStoreContext.Provider value={myStore}>
+```
+
+And in you child components
+
+```
+const myStore = useMyStoreContext()
+```
+
+This is especially useful when your stores are 'transients' and you want to pass them down your React tree.
 
 ## Overriding
 
