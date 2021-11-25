@@ -152,6 +152,9 @@ class {{pascalCase name}} {
   }
 }
 
+// Use the following to register a class as singleton
+// getRootContainer().bind({{pascalCase name}}).toSelf().inSingletonScope();
+
 export const use{{pascalCase name}} = () => useClassStore({{pascalCase name}});
 
 export const {
