@@ -36,11 +36,53 @@ function addLinesToFile(newLines, filePath, forceCreate) {
   }
 }
 
+function prependLinesToFile(newLines, filePath, forceCreate) {
+  const { lines } = require("mrm-core");
+  const file = lines(filePath);
+  const existingContent = file.get();
+
+  const newContentArray = Array.isArray(newLines) ? newLines : [newLines];
+
+  if (file.exists() || forceCreate) {
+    file.set(newContentArray.concat(existingContent)).save();
+  }
+}
+
+function replaceLine(line, newLine, filePath, fullLineOnly){
+  const { lines } = require("mrm-core");
+  const file = lines(filePath);
+  const content = file.get();
+
+  const newContent = content.map(lineItem => {
+    if (fullLineOnly && lineItem === line) {
+      return newLine;
+    }
+
+    if (lineItem.includes(line)) {
+      return newLine;
+    }
+
+    return lineItem;
+  })
+
+  file.set(newContent).save();
+}
+
+function fileExists(path) {
+  const { lines } = require("mrm-core");
+  const file = lines(path);
+
+  return file.exists();
+}
+
 module.exports = {
   installDevDependencies,
   installDependencies,
   loadText,
   setFileContent,
   addLinesToFile,
+  prependLinesToFile,
+  replaceLine,
   copyFile,
+  fileExists
 };
