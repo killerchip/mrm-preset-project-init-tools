@@ -1,0 +1,25 @@
+import { NodePlopAPI } from 'plop';
+
+// This is a starter file.
+// Customize to your liking.
+
+export default function {{camelCase command}}(plop: NodePlopAPI) {
+  return plop.setGenerator('{{camelCase command}}', {
+    description: 'No description for {{camelCase command}}',
+    prompts: [
+      {
+        type: 'input',
+        name: 'targetFolder',
+        message: 'specify install folder',
+        default: 'src',
+      },
+    ],
+    actions: [
+      {
+        type: 'add',
+        path: '\{{targetFolder}}/{{camelCase command}}GeneratedFile.ts',
+        templateFile: './plops/{{camelCase command}}/{{camelCase command}}.hbs',
+      },
+    ],
+  });
+}

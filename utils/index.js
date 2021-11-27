@@ -4,11 +4,11 @@ function installPackages(dependencies, dev) {
 }
 
 function installDevDependencies(dependencies) {
-  return installPackages(dependencies, true);
+  installPackages(dependencies, true);
 }
 
 function installDependencies(dependencies) {
-  return installPackages(dependencies, false);
+  installPackages(dependencies, false);
 }
 
 function loadText(path) {
@@ -16,17 +16,21 @@ function loadText(path) {
   return fs.readFileSync(path, "utf8");
 }
 
-function overwriteFileContent(newContent, targetFile) {
-  const { lines, deleteFiles } = require("mrm-core");
+function setFileContent(newContent, targetFile) {
+  const { lines } = require("mrm-core");
 
-  deleteFiles(targetFile);
   const plopFile = lines(targetFile);
-  plopFile.add(newContent).save();
+  plopFile.set([newContent]).save();
+}
+
+function copyFile(source, target) {
+  setFileContent(loadText(source), target);
 }
 
 module.exports = {
-  loadText,
-  overwriteFileContent,
   installDevDependencies,
   installDependencies,
+  loadText,
+  setFileContent,
+  copyFile,
 };
