@@ -48,12 +48,12 @@ function prependLinesToFile(newLines, filePath, forceCreate) {
   }
 }
 
-function replaceLine(line, newLine, filePath, fullLineOnly){
+function replaceLine(line, newLine, filePath, fullLineOnly) {
   const { lines } = require("mrm-core");
   const file = lines(filePath);
   const content = file.get();
 
-  const newContent = content.map(lineItem => {
+  const newContent = content.map((lineItem) => {
     if (fullLineOnly && lineItem === line) {
       return newLine;
     }
@@ -63,7 +63,7 @@ function replaceLine(line, newLine, filePath, fullLineOnly){
     }
 
     return lineItem;
-  })
+  });
 
   file.set(newContent).save();
 }
@@ -75,6 +75,12 @@ function fileExists(path) {
   return file.exists();
 }
 
+function mergeToJson(jsonObject, filePath) {
+  const { json } = require("mrm-core");
+  const file = json(filePath);
+  file.merge(jsonObject);
+}
+
 module.exports = {
   installDevDependencies,
   installDependencies,
@@ -84,5 +90,5 @@ module.exports = {
   prependLinesToFile,
   replaceLine,
   copyFile,
-  fileExists
+  fileExists,
 };
