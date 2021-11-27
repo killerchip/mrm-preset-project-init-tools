@@ -1,0 +1,19 @@
+import { injectable } from 'inversify';
+import { makeAutoObservable } from 'mobx';
+
+@injectable()
+class {{pascalCase name}} {
+  constructor() {
+    makeAutoObservable(this);
+  }
+}
+
+// Use the following to register a class as singleton
+// getRootContainer().bind({{pascalCase name}}).toSelf().inSingletonScope();
+
+export const use{{pascalCase name}} = () => useClassStore({{pascalCase name}});
+
+export const {
+  Context: {{pascalCase name}}Context,
+  useStoreContext: use{{pascalCase name}}Context,
+} = createStoreContext<{{pascalCase name}}>();
