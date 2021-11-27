@@ -19,7 +19,7 @@ export default function plopCommand(plop: NodePlopAPI) {
       {
         type: "add",
         path: "./plops/{{camelCase command}}/{{camelCase command}}.hbs",
-        templateFile: "./plops/plopCommand/plopCommandHbs.hbs",
+        templateFile: "./plops/plopCommand/cmdGenerated.hbs",
       },
       {
         path: "plopfile.ts",

@@ -11,11 +11,16 @@ const commandIndexSourcePath = require.resolve("./plopCommand/index.ts");
 const commandTargetPath = commandsRootPath + "/plopCommand";
 const commandIndexTargetFilePath = commandTargetPath + "/index.ts";
 
-const commandIndexHbsSourcePath = require.resolve('./plopCommand/cmdIndex.hbs');
-const commandIndexHbsTargetFilePath = commandTargetPath + '/cmdIndex.hbs'
+const commandIndexHbsSourcePath = require.resolve("./plopCommand/cmdIndex.hbs");
+const commandIndexHbsTargetFilePath = commandTargetPath + "/cmdIndex.hbs";
+
+const commandGeneratedSourcePath = require.resolve(
+  "./plopCommand/cmdGenerated.hbs"
+);
+const commandGeneratedTargetFilePath = commandTargetPath + "/cmdGenerated.hbs";
 
 module.exports = function task() {
-  const { lines, deleteFiles, makeDirs } = require("mrm-core");
+  const { lines, makeDirs } = require("mrm-core");
 
   // Install Plop package
   installDevDependencies(devPackages);
@@ -43,9 +48,10 @@ module.exports = function task() {
   // ploCommandIndexFile.add(plopCommandIndexHbs).save();
 
   // Plop Command plopCommandHbs.hbs
-  deleteFiles("plops/plopCommand/plopCommandHbs.hbs");
-  const plopCommandHbsFile = lines("plops/plopCommand/plopCommandHbs.hbs");
-  plopCommandHbsFile.add(plopCommandHbsContent).save();
+  copyFile(commandGeneratedSourcePath, commandGeneratedTargetFilePath);
+  // deleteFiles("plops/plopCommand/plopCommandHbs.hbs");
+  // const plopCommandHbsFile = lines("plops/plopCommand/plopCommandHbs.hbs");
+  // plopCommandHbsFile.add(plopCommandHbsContent).save();
 };
 
 module.exports.description = "Add plop package (code generator tool)";
