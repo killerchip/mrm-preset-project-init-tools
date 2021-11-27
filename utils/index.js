@@ -27,10 +27,20 @@ function copyFile(source, target) {
   setFileContent(loadText(source), target);
 }
 
+function addLinesToFile(newLines, filePath, forceCreate) {
+  const { lines } = require("mrm-core");
+  const file = lines(filePath);
+
+  if (file.exists() || forceCreate) {
+    file.remove(newLines).add(newLines).save();
+  }
+}
+
 module.exports = {
   installDevDependencies,
   installDependencies,
   loadText,
   setFileContent,
+  addLinesToFile,
   copyFile,
 };
