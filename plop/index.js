@@ -21,17 +21,13 @@ const commandGeneratedSourcePath = require.resolve(
 const commandGeneratedTargetFilePath = commandTargetPath + "/cmdGenerated.hbs";
 
 module.exports = function task() {
-  const { lines, makeDirs } = require("mrm-core");
+  const { makeDirs } = require("mrm-core");
 
   // Install Plop package
   installDevDependencies(devPackages);
 
   // Add Prettier Ignore file
   addLinesToFile(prettierIgnore, '.prettierIgnore', true)
-  // const prettierIgnoreFile = lines(".prettierignore");
-  // if (prettierIgnoreFile.exists()) {
-  //   prettierIgnoreFile.remove(prettierIgnore).add(prettierIgnore).save();
-  // }
 
   // Base plopfile config
   copyFile(plopConfigSourcePath, plopConfigTargetPath);
