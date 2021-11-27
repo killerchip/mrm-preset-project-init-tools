@@ -1,3 +1,6 @@
+const { loadText, overwriteFileContent } = require("../utils");
+const plopFileContent = loadText(require.resolve("./plopfile.ts"));
+
 module.exports = function task() {
   const { lines, install, deleteFiles, makeDirs } = require("mrm-core");
 
@@ -11,9 +14,11 @@ module.exports = function task() {
   }
 
   // Base plopfile config
-  deleteFiles("plopfile.ts");
-  const plopFile = lines("plopfile.ts");
-  plopFile.add(plopFileContent).save();
+  console.log(plopFileContent);
+  overwriteFileContent(plopFileContent, "plopfile.ts");
+  // deleteFiles("plopfile.ts");
+  // const plopFile = lines("plopfile.ts");
+  // plopFile.add(plopFileContent).save();
 
   // Plop Command
   makeDirs("plops");
@@ -39,16 +44,17 @@ module.exports.description = "Add plop package (code generator tool)";
 
 const devDependenciesToInstall = ["plop"];
 const prettierIgnore = ["**/*.hbs"];
-const plopFileContent = `import { NodePlopAPI } from 'plop';
 
-import plopCommand from './plops/plopCommand';
-//--plop imports--
+// const plopFileContent = `import { NodePlopAPI } from 'plop';
 
-export default function (plop: NodePlopAPI) {
-  plopCommand(plop);
-  //--plop commands--
-}
-`;
+// import plopCommand from './plops/plopCommand';
+// //--plop imports--
+
+// export default function (plop: NodePlopAPI) {
+//   plopCommand(plop);
+//   //--plop commands--
+// }
+// `;
 
 const plopCommandIndexContent = `import { NodePlopAPI } from 'plop';
 
