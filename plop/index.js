@@ -1,11 +1,18 @@
-const { loadText, overwriteFileContent } = require("../utils");
+const {
+  loadText,
+  overwriteFileContent,
+  installDevDependencies,
+} = require("../utils");
+
 const plopFileContent = loadText(require.resolve("./plopfile.ts"));
+const devPackages = ["plop"];
 
 module.exports = function task() {
-  const { lines, install, deleteFiles, makeDirs } = require("mrm-core");
+  const { lines, deleteFiles, makeDirs } = require("mrm-core");
 
   // Install Plop package
-  install(devDependenciesToInstall, { yarn: true });
+  installDevDependencies(devPackages);
+  // install(devDependenciesToInstall, { yarn: true });
 
   // Add Prettier Ignore file
   const prettierIgnoreFile = lines(".prettierignore");
@@ -14,7 +21,6 @@ module.exports = function task() {
   }
 
   // Base plopfile config
-  console.log(plopFileContent);
   overwriteFileContent(plopFileContent, "plopfile.ts");
   // deleteFiles("plopfile.ts");
   // const plopFile = lines("plopfile.ts");
@@ -42,7 +48,6 @@ module.exports = function task() {
 
 module.exports.description = "Add plop package (code generator tool)";
 
-const devDependenciesToInstall = ["plop"];
 const prettierIgnore = ["**/*.hbs"];
 
 // const plopFileContent = `import { NodePlopAPI } from 'plop';
