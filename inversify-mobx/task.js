@@ -33,7 +33,7 @@ module.exports = function inversifyMobx() {
   tsConfigFile.merge(tsConfigNewContent).save();
 
   // Create inversify file
-  copyFile(require.resolve("./inversify.ts"), "./src/config/inversify.ts");
+  copyFile(require.resolve("./resources/inversify.ts"), "./src/config/inversify.ts");
 
   // import necessary stuff
   prependLinesToFile(appTsxContent, "./App.tsx");
@@ -44,9 +44,9 @@ module.exports = function inversifyMobx() {
 
   // add plop command
   makeDirs("./plops/addStore");
-  copyFile(require.resolve("./plopIndex.ts"), "./plops/addStore/index.ts");
+  copyFile(require.resolve("./resources/plopIndex.ts"), "./plops/addStore/index.ts");
 
-  copyFile(require.resolve("./store.ts.hbs"), "./plops/addStore/store.ts.hbs");
+  copyFile(require.resolve("./resources/store.ts.hbs"), "./plops/addStore/store.ts.hbs");
 
   // Modify plopfile
   replaceLine(
