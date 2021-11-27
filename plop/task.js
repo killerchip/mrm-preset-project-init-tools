@@ -5,18 +5,18 @@ const prettierIgnore = ["**/*.hbs"];
 
 const commandsRootPath = "plops";
 
-const plopConfigSourcePath = require.resolve("./plopfile.ts");
+const plopConfigSourcePath = require.resolve("./resources/plopfile.ts");
 const plopConfigTargetPath = "plopfile.ts";
 
-const commandIndexSourcePath = require.resolve("./plopCommand/index.ts");
+const commandIndexSourcePath = require.resolve("./resources/plopCommand/index.ts");
 const commandTargetPath = commandsRootPath + "/plopCommand";
 const commandIndexTargetFilePath = commandTargetPath + "/index.ts";
 
-const commandIndexHbsSourcePath = require.resolve("./plopCommand/cmdIndex.hbs");
+const commandIndexHbsSourcePath = require.resolve("./resources/plopCommand/cmdIndex.hbs");
 const commandIndexHbsTargetFilePath = commandTargetPath + "/cmdIndex.hbs";
 
 const commandGeneratedSourcePath = require.resolve(
-  "./plopCommand/cmdGenerated.hbs"
+  "./resources/plopCommand/cmdGenerated.hbs"
 );
 const commandGeneratedTargetFilePath = commandTargetPath + "/cmdGenerated.hbs";
 
