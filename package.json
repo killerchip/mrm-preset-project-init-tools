@@ -17,7 +17,7 @@
   ],
   "files": [
     "config.json",
-    "*/index.js"
+    "*"
   ],
   "dependencies": {
     "mrm": "^3.0.10",
