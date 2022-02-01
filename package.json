@@ -1,6 +1,6 @@
 {
   "name": "mrm-preset-project-init-tools",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "main": "config.json",
   "author": "ioannou.dev@gmail.com",
