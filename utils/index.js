@@ -3,12 +3,25 @@ function installPackages(dependencies, dev) {
   install(dependencies, { yarn: true, dev });
 }
 
+function uninstallPackages(dependencies, dev) {
+  const { uninstall } = require("mrm-core");
+  uninstall(dependencies, { yarn: true, dev });
+}
+
 function installDevDependencies(dependencies) {
   installPackages(dependencies, true);
 }
 
 function installDependencies(dependencies) {
   installPackages(dependencies, false);
+}
+
+function uninstallDevDependencies(dependencies) {
+  uninstallPackages(dependencies, true);
+}
+
+function uninstallDependencies(dependencies) {
+  uninstallPackages(dependencies, false);
 }
 
 function loadText(path) {
@@ -75,15 +88,11 @@ function fileExists(path) {
   return file.exists();
 }
 
-function mergeToJson(jsonObject, filePath) {
-  const { json } = require("mrm-core");
-  const file = json(filePath);
-  file.merge(jsonObject);
-}
-
 module.exports = {
   installDevDependencies,
   installDependencies,
+  uninstallDependencies,
+  uninstallDevDependencies,
   loadText,
   setFileContent,
   addLinesToFile,

@@ -1,6 +1,7 @@
 const { exec } = require("child_process");
 const {
   installDevDependencies,
+  uninstallDevDependencies,
   mergeToJson,
   addLinesToFile,
   copyFile,
@@ -31,15 +32,11 @@ function execCli(command) {
 
 module.exports = function expoEslint() {
   const {
-    json,
-    install,
     packageJson,
-    lines,
-    deleteFiles,
   } = require("mrm-core");
 
   // Package JSON prepare
-  installDevDependencies([
+  const packages = [
     "eslint",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
@@ -50,7 +47,10 @@ module.exports = function expoEslint() {
     "husky",
     "prettier",
     "pretty-quick",
-  ]);
+  ];
+
+  uninstallDevDependencies(packages);
+  installDevDependencies(packages);
 
   const packageJsonFile = packageJson();
   Object.keys(scriptsToAdd).forEach((scriptName) =>
@@ -70,7 +70,13 @@ module.exports = function expoEslint() {
   // Prettier
   copyFile(require.resolve("./resources/.prettierrc.json"), ".prettierrc");
   addLinesToFile(
-    ["node_modules", "coverage", "yarn-error.log"],
+    ["node_modules", "coverage", "yarn-error.log", ".expo"],
+    ".prettierignore"
+  );
+
+  copyFile(require.resolve("./resources/.prettierignore"), ".prettierignore");
+  addLinesToFile(
+    ["node_modules", "coverage", "yarn-error.log", ".expo"],
     ".prettierignore"
   );
 
