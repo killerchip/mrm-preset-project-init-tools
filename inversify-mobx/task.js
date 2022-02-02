@@ -44,23 +44,23 @@ module.exports = function inversifyMobx() {
 
   // add plop command
   makeDirs("./plops/addStore");
-  copyFile(require.resolve("./resources/plopIndex.ts"), "./plops/addStore/index.ts");
+  copyFile(require.resolve("./resources/plopIndex.js"), "./plops/addStore/index.js");
 
   copyFile(require.resolve("./resources/store.ts.hbs"), "./plops/addStore/store.ts.hbs");
 
   // Modify plopfile
   replaceLine(
     "//--plop imports--",
-    `import addStore from './plops/addStore'
+    `const addStore = require( './plops/addStore' );
     //--plop imports--`,
-    "plopfile.ts"
+    "plopfile.js"
   );
 
   replaceLine(
     "//--plop commands--",
     `addStore(plop)
     //--plop commands--`,
-    "plopfile.ts"
+    "plopfile.js"
   );
 };
 

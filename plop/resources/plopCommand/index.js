@@ -1,6 +1,4 @@
-import { NodePlopAPI } from "plop";
-
-export default function plopCommand(plop: NodePlopAPI) {
+module.exports = function plopCommand(plop) {
   return plop.setGenerator("plopCommand", {
     description: "Create new plop command",
     prompts: [
@@ -13,7 +11,7 @@ export default function plopCommand(plop: NodePlopAPI) {
     actions: [
       {
         type: "add",
-        path: "./plops/{{camelCase command}}/index.ts",
+        path: "./plops/{{camelCase command}}/index.js",
         templateFile: "./plops/plopCommand/cmdIndex.hbs",
       },
       {
@@ -22,18 +20,18 @@ export default function plopCommand(plop: NodePlopAPI) {
         templateFile: "./plops/plopCommand/cmdGenerated.hbs",
       },
       {
-        path: "plopfile.ts",
+        path: "plopfile.js",
         pattern: /(\/\/--plop imports--)/g,
         template:
-          "import {{camelCase command}} from './plops/{{camelCase command}}';\n$1",
+          "const {{camelCase command}} = require( './plops/{{camelCase command}}');\n$1",
         type: "modify",
       },
       {
-        path: "plopfile.ts",
+        path: "plopfile.js",
         pattern: /(\/\/--plop commands--)/g,
         template: "{{camelCase command}}(plop);\n$1",
         type: "modify",
       },
     ],
   });
-}
+};
