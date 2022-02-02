@@ -62,7 +62,7 @@ module.exports = function expoEslint() {
   copyFile(require.resolve("./resources/.eslintrc.json"), ".eslintrc.json");
 
   addLinesToFile(
-    ["node_modules", "**/*.js", "coverage"],
+    ["node_modules", "**/*.js", "coverage", "**/*.hbs"],
     ".eslintignore",
     true
   );
@@ -76,7 +76,7 @@ module.exports = function expoEslint() {
 
   copyFile(require.resolve("./resources/.prettierignore"), ".prettierignore");
   addLinesToFile(
-    ["node_modules", "coverage", "yarn-error.log", ".expo"],
+    ["node_modules", "coverage", "yarn-error.log", ".expo", "**/*.hbs"],
     ".prettierignore"
   );
 
