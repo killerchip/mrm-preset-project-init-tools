@@ -1,6 +1,9 @@
 const inversifyMobx = require("./task");
+const { printHeader } = require("../utils");
+
 
 module.exports = function task() {
+  printHeader();
   inversifyMobx();
 };
 

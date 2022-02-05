@@ -1,4 +1,7 @@
+const { printHeader } = require("../utils");
+
 module.exports = function task({ projectName }) {
+  printHeader();
   const { json } = require("mrm-core");
   const file = json("package.json");
   file.set("name", projectName);
