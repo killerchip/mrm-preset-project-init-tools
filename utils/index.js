@@ -1,3 +1,10 @@
+function printHeader() {
+  const package = require("../package.json");
+
+  console.log(package.name, 'v'+package.version);
+  console.log(' ');
+}
+
 function installPackages(dependencies, dev) {
   const { install } = require("mrm-core");
   install(dependencies, { yarn: true, dev });
@@ -89,6 +96,7 @@ function fileExists(path) {
 }
 
 module.exports = {
+  printHeader,
   installDevDependencies,
   installDependencies,
   uninstallDependencies,

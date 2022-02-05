@@ -1,6 +1,6 @@
 {
   "name": "mrm-preset-project-init-tools",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "license": "MIT",
   "main": "config.json",
   "author": "ioannou.dev@gmail.com",
@@ -24,5 +24,8 @@
     "mrm-core": "^6.1.7",
     "mrm-task-eslint": "^3.0.8",
     "mrm-task-prettier": "^4.0.8"
+  },
+  "scripts": {
+    "mrm:publish": "yarn publish"
   }
 }
